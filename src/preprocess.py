@@ -17,3 +17,25 @@ def add_actual_column(df):
   df_for_prediction = df_for_prediction.dropna()
   
   return df_for_prediction
+
+# Remove MultiIndex
+def flatten_columns(df):
+  df = df.copy()
+  
+  df.columns = [
+    '_'.join(col).strip() if isinstance(col, tuple) else col 
+    for col in df.columns
+  ]
+
+# Rename columns
+  df = df.rename(columns={
+    "Close_AMZN": "Close",
+    "High_AMZN": "High",
+    "Low_AMZN": "Low",
+    "Open_AMZN": "Open",
+    "Volume_AMZN": "Volume",
+    "Mean_": "Mean",
+    "Actual_": "Actual"
+    })
+  
+  return(df)

@@ -6,6 +6,7 @@ from src.eda import test_adf
 from models.tuning import tuning_model
 from models.model import sarimax_model
 from models.predict import predict_sarimax
+from models.metrics import metrics
 from statsmodels.tools.eval_measures import rmse
 import pandas as pd
 
@@ -89,5 +90,9 @@ plot_actual_vs_predicted(
 )
 
 # Analysing Error
-error = rmse(comparision['Actual'], comparision['Predicted'])
-print(f'The error was: {error:.3f}.')
+y_test, predictions = y_test.align(predictions, join="inner")
+
+mae, rmse = metrics(y_test, predictions)
+
+print(f'MAE: {mae:.3f}')
+print(f'RMSE: {rmse:.3f}')

@@ -1,7 +1,7 @@
 from src.config import *
 from src.data_loader import amzn_load
 from src.preprocess import add_mean_column, add_actual_column, flatten_columns, scale_features, scale_target
-from src.plots import plot_mean
+from src.plots import plot_mean, plot_seas_mean
 import pandas as pd
 
 df = amzn_load()
@@ -25,3 +25,6 @@ y, sc_out = scale_target(df_for_prediction)
 
 print(x.head(2))
 print(y.head(2))
+
+# Plot Seasonal Decompose of 'Mean'
+plot_seas_mean(df_for_prediction)

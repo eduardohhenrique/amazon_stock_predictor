@@ -2,6 +2,7 @@ from src.config import *
 from src.data_loader import amzn_load
 from src.preprocess import add_mean_column, add_actual_column, flatten_columns, scale_features, scale_target
 from src.plots import plot_mean, plot_seas_mean
+from src.eda import test_adf
 import pandas as pd
 
 df = amzn_load()
@@ -28,3 +29,17 @@ print(y.head(2))
 
 # Plot Seasonal Decompose of 'Mean'
 plot_seas_mean(df_for_prediction)
+
+# Train / Test split
+train_size = int(len(df) * 0.80)
+test_size = len(df) - train_size
+
+x_train = x[:train_size].dropna()
+x_test = x[train_size:].dropna()
+
+y_train = y[:train_size].dropna()
+y_test = y[train_size:].dropna()
+y_test = y['Stock Price Next Day'][train_size:].dropna()
+
+# Test Stationary
+test_adf(y_test.diff(), 'Stock Price Next Day')

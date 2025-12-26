@@ -1,4 +1,5 @@
 import pandas as pd  
+from sklearn.preprocessing import MinMaxScaler
 
 # Add the average between 'Low' and 'High' column
 def add_mean_column(df):
@@ -39,3 +40,41 @@ def flatten_columns(df):
     })
   
   return(df)
+
+
+# MinMaxScaler
+
+def scale_features(df):
+  features = [
+    'Close', 
+    'High', 
+    'Low', 
+    'Open', 
+    'Volume', 
+    'Mean', 
+    'Actual'
+  ]
+  
+  sc_in = MinMaxScaler(feature_range = (0, 1))
+  scaled_x = sc_in.fit_transform(df[features])
+  
+  x = pd.DataFrame(
+    scaled_x,
+    columns = features,
+    index = df.index
+  )
+  
+  return x, sc_in
+
+
+def scale_target(df):
+  sc_out = MinMaxScaler(feature_range = (0, 1))
+  sclaed_y = sc_out.fit_transform(df[['Actual']])
+  
+  y = pd.DataFrame(
+    sclaed_y,
+    columns = ['Actual'],
+    index = df.index
+  )
+  
+  return y, sc_out

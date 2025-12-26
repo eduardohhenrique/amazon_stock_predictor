@@ -51,8 +51,7 @@ def scale_features(df):
     'Low', 
     'Open', 
     'Volume', 
-    'Mean', 
-    'Actual'
+    'Mean'
   ]
   
   sc_in = MinMaxScaler(feature_range = (0, 1))
@@ -69,11 +68,11 @@ def scale_features(df):
 
 def scale_target(df):
   sc_out = MinMaxScaler(feature_range = (0, 1))
-  sclaed_y = sc_out.fit_transform(df[['Actual']])
+  scaled_y = sc_out.fit_transform(df[['Actual']])
   
   y = pd.DataFrame(
-    sclaed_y,
-    columns = ['Actual'],
+    scaled_y,
+    columns = ['Stock Price Next Day'],
     index = df.index
   )
   

@@ -23,20 +23,5 @@ plot_mean(df_for_prediction)
 x, sc_in = scale_features(df_for_prediction)
 y, sc_out = scale_target(df_for_prediction)
 
-x.rename(columns = {
-  0: 'Close', 
-  1: 'High', 
-  2: 'Low', 
-  3: 'Open', 
-  4: 'Volume', 
-  5: 'Mean'
-  }, 
-  inplace = True)
-
-x = pd.DataFrame(x)
-x.index = df_for_prediction.index
 print(x.head(2))
-
-y.rename(columns = {0: 'Stock Price Next Day'}, inplace = True)
-y.index = df_for_prediction.index
 print(y.head(2))

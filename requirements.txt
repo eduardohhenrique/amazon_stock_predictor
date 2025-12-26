@@ -7,3 +7,4 @@ seaborn
 kaleido
 scikit-learn
 statsomdels
+pmdarima

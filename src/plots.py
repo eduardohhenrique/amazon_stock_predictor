@@ -57,3 +57,32 @@ def plot_seas_mean(df, column = 'Mean', period = 252):
   plt.close()
 
   print(f"Graphic PNG saved in '{img_dir}'.")
+
+
+import matplotlib.pyplot as plt
+import pandas as pd
+from pathlib import Path
+
+
+def plot_actual_vs_predicted(
+    y_test: pd.Series,
+    predictions: pd.Series,
+    title: str = "Actual vs Predicted"
+):
+    fig, ax = plt.subplots(figsize=(20, 8))
+
+    ax.plot(y_test.index, y_test, label="Actual", color="blue")
+    ax.plot(predictions.index, predictions, label="Predicted", color="red")
+
+    ax.set_title(title)
+    ax.set_xlabel("Date")
+    ax.set_ylabel("Value")
+    ax.legend()
+    ax.grid(True)
+
+    # Pasta de saída
+    output_dir = Path("reports/figures")
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    plt.savefig(output_dir / "actual_vs_predicted.png", bbox_inches="tight")
+    plt.close()
